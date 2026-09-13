@@ -8,7 +8,7 @@ int main() {
 
   // TODO: Uncomment the code below to pass the first stage
   while(true){
-    std::cout<<"$";
+    std::cout<<"$ ";
     std::string command;
     std::getline(std::cin, command);
 
