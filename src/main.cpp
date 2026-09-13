@@ -2,10 +2,12 @@
 #include <string>
 #include <unordered_map>
 
-std::unordered_map <std::string, int> builtins;
-builtins["type"] = 1;
-builtins["exit"] = 1;
-builtins["echo"] = 1;
+std::unordered_map <std::string, int> builtins{
+  {"type", 1},
+  {"exit", 1},
+  {"echo", 1}
+}
+
 
 void type(std::string argument){
   if(builtins[argument] == 1) std::cout<<argument<<" is a shell builtin"<<"\n";
