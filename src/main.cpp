@@ -40,7 +40,7 @@ int main() {
         echo(argument);
         break;
       default:
-        cout<<command<<": command not found"<<"\n";
+        std::cout<<command<<": command not found"<<"\n";
     }
   }
 }
