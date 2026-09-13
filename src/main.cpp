@@ -24,7 +24,7 @@ int main() {
     int index = 0;
 
     command = "";
-    while(commandLine[index] != ' '){
+    while(commandLine[index] != ' ' && index < size){
       command += commandLine[index++];
     }
 
