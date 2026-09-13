@@ -17,16 +17,19 @@ int main() {
   
   while(true){
     std::cout<<"$ ";
+    commandLine = "";
     std::getline(std::cin, commandLine);
 
     int size = commandLine.length();
     int index = 0;
 
+    command = "";
     while(commandLine[index] != ' '){
       command += commandLine[index++];
     }
 
     index++;
+    argument = "";
     while(index < size){
       argument += commandLine[index++];
     }
