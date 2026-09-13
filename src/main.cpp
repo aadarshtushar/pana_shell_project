@@ -6,8 +6,7 @@ std::unordered_map <std::string, int> builtins{
   {"type", 1},
   {"exit", 1},
   {"echo", 1}
-}
-
+};
 
 void type(std::string argument){
   if(builtins[argument] == 1) std::cout<<argument<<" is a shell builtin"<<"\n";
