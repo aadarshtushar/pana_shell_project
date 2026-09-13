@@ -2,7 +2,7 @@
 #include <string>
 
 void echo(std::string argument){
-    cout<<argument<<"\n";
+    std::cout<<argument<<"\n";
 }
 
 int main() {
@@ -30,8 +30,6 @@ int main() {
     while(index < size){
       argument += commandLine[index++];
     }
-
-
 
     if(command == "exit") break;
     if(command == "echo") echo(argument);
