@@ -35,12 +35,7 @@ int main() {
     }
 
     if(command == "exit") break;
-    switch (command){
-      case "echo":
-        echo(argument);
-        break;
-      default:
-        std::cout<<command<<": command not found"<<"\n";
-    }
+    if(command == "echo") echo(argument);
+    else std::cout<<commandLine<<": command not found"<<"\n";
   }
 }
