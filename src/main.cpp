@@ -22,11 +22,13 @@ int main() {
     int size = command.length();
     int index = 0;
 
+    command = "";
     while(commandLine[index] != ' '){
       command += commandLine[index++];
     }
 
     index++;
+    argument = "";
     while(index < size){
       argument += commandLine[index++];
     }
