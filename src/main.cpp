@@ -19,16 +19,14 @@ int main() {
     std::cout<<"$ ";
     std::getline(std::cin, commandLine);
 
-    int size = command.length();
+    int size = commandLine.length();
     int index = 0;
 
-    command = "";
     while(commandLine[index] != ' '){
       command += commandLine[index++];
     }
 
     index++;
-    argument = "";
     while(index < size){
       argument += commandLine[index++];
     }
