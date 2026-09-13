@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 
+void echo(std::string argument){
+    cout<<argument<<"\n";
+}
+
 int main() {
   // Flush after every std::cout / std:cerr
   std::cout << std::unitbuf;
@@ -10,10 +14,6 @@ int main() {
   std::string commandLine;
   std::string command;
   std::string argument;
-
-  void echo(std::string argument){
-    cout<<argument<<"\n";
-  }
   
   while(true){
     std::cout<<"$ ";
