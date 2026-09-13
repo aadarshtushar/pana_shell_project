@@ -1,5 +1,16 @@
 #include <iostream>
 #include <string>
+#include <unordered_map>
+
+std::unordered_map <std::string, int> builtins;
+builtins["type"] = 1;
+builtins["exit"] = 1;
+builtins["echo"] = 1;
+
+void type(std::string argument){
+  if(builtins[argument] == 1) std::cout<<argument<<" is a shell builtin"<<"\n";
+  else std::cout<<argument<<": not found"<<"\n";
+}
 
 void echo(std::string argument){
     std::cout<<argument<<"\n";
@@ -36,6 +47,7 @@ int main() {
 
     if(command == "exit") break;
     if(command == "echo") echo(argument);
+    if(command == "type") type(argument);
     else std::cout<<commandLine<<": command not found"<<"\n";
   }
 }
