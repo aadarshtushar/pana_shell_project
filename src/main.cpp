@@ -47,8 +47,8 @@ int main() {
     }
 
     if(command == "exit") break;
-    if(command == "echo") echo(argument);
-    if(command == "type") type(argument);
-    else std::cout<<commandLine<<": command not found"<<"\n";
+    else if(command == "echo") echo(argument);
+    else if(command == "type") type(argument);
+    else std::cout<<command<<": command not found"<<"\n";
   }
 }
