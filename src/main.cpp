@@ -7,12 +7,33 @@ int main() {
   std::cerr << std::unitbuf;
 
   // TODO: Uncomment the code below to pass the first stage
+  std::string commandLine;
+  std::string command;
+  std::string argument;
+
+  void echo(std::string argument){
+    cout<<argument<<"\n";
+  }
+  
   while(true){
     std::cout<<"$ ";
-    std::string command;
-    std::getline(std::cin, command);
+    std::getline(std::cin, commandLine);
+
+    int size = command.length();
+    int index = 0;
+
+    while(commandLine[index] != ' '){
+      command += commandLine[index++];
+    }
+
+    index++;
+    while(index < size){
+      argument += commandLine[index++];
+    }
+
+
 
     if(command == "exit") break;
-    std::cout<<command<<": command not found"<<std::endl;
+    if(command == "echo") echo(argument);
   }
 }
