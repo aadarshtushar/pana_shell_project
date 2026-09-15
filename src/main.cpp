@@ -17,8 +17,6 @@ void type(std::string argument, std::vector<std::string> envDirectories){
 
     for(auto i: envDirectories){
 
-      if(flag) break;
-
       std::filesystem::directory_iterator itr (i);
       for(auto j: itr){
         if(j.path().stem() != argument) continue;
@@ -32,14 +30,13 @@ void type(std::string argument, std::vector<std::string> envDirectories){
         if((p & check) != std::filesystem::perms::none){
           std::string filepath = j.path();
           std::cout<<argument<<" is "<<filepath<<"\n";
-          flag = true;
-          break;
+          return;
         }
 
       }
     }
 
-    if(!flag) std::cout<<argument<<": not found"<<"\n";
+    std::cout<<argument<<": not found"<<"\n";
   }
 }
 
@@ -52,6 +49,7 @@ int main() {
   std::cout << std::unitbuf;
   std::cerr << std::unitbuf;
 
+  // parsing PATH environment variable to keep note of directories to be used to run commands
   std::string path = std::getenv("PATH");
   std::vector<std::string> envDirectories;
   std::string dir = "";
@@ -65,7 +63,7 @@ int main() {
   }
   envDirectories.push_back(dir);
 
-  //Components of command line
+  // Components of command line
   std::string commandLine;
   std::string command;
   std::string argument;
@@ -77,7 +75,7 @@ int main() {
     commandLine = "";
     std::getline(std::cin, commandLine);
 
-    //seperating command and argument from commandline
+    // seperating command and argument from commandline
     int size = commandLine.length();
     int index = 0;
 
