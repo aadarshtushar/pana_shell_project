@@ -27,7 +27,7 @@ void type(std::string argument, std::vector<std::string> envDirectories){
         std::filesystem::perms::group_exec |
         std::filesystem::perms:: others_exec;
 
-        if(p & check){
+        if((p & check) != std::filesystem::perms::none){
           std::cout<<argument<<" is "<<j.path()<<"\n";
           flag = true;
           break;
