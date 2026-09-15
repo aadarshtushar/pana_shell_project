@@ -21,6 +21,8 @@ void type(std::string argument, std::vector<std::string> envDirectories){
 
       std::filesystem::directory_iterator itr (i);
       for(auto j: itr){
+        if(j.path().stem() != argument) continue;
+
         std::filesystem::perms p = j.status().permissions();
 
         std::filesystem::perms check = std::filesystem::perms::owner_exec |
