@@ -28,7 +28,7 @@ void type(std::string argument, std::vector<std::string> envDirectories){
         std::filesystem::perms:: others_exec;
 
         if(p & check){
-          cout<<argument<<" is "<<j.path()<<"\n";
+          std::cout<<argument<<" is "<<j.path()<<"\n";
           flag = true;
           break;
         }
@@ -36,7 +36,7 @@ void type(std::string argument, std::vector<std::string> envDirectories){
       }
     }
 
-    if(!flag) cout<<argument<<": not found"<<"\n";
+    if(!flag) std::cout<<argument<<": not found"<<"\n";
   }
 }
 
