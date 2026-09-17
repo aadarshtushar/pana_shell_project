@@ -7,6 +7,10 @@
 #include <utility>
 #include <functional>
 
+void echo(std::string);
+void type(std::string);
+void exit(std::string);
+
 std::unordered_map <std::string, std::function<void(std::string)>> builtins{
   {"echo", echo},
   {"type", type},
