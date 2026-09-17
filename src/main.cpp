@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <utility>
+#include <functional>
 
 std::unordered_map <std::string, std::function<void(std::string)>> builtins{
   {"echo", echo},
@@ -30,7 +31,7 @@ std::vector<std::string> envDirectories = []() {
   }
 
   return directories;
-}
+};
 
 void type(std::string argument){
   if(builtins.find(argument) != builtins.end()) std::cout<<argument<<" is a shell builtin"<<"\n";
