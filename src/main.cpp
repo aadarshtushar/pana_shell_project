@@ -9,12 +9,12 @@
 
 void echo(std::string);
 void type(std::string);
-void exit(std::string);
+void exitFunc(std::string);
 
 std::unordered_map <std::string, std::function<void(std::string)>> builtins{
   {"echo", echo},
   {"type", type},
-  {"exit", exit}
+  {"exit", exitFunc}
 };
 
 void exit(std:: string argument){
