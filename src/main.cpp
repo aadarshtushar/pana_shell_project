@@ -30,7 +30,7 @@ std::vector<std::string> envDirectories = []() {
   std::vector<std::string> directories;
 
   std::string dir;
-  while(std::getline(ss, dir, ':')){
+  while(std::getline(pathStream, dir, ':')){
     directories.push_back(dir);
   }
 
