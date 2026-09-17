@@ -7,7 +7,7 @@
 #include <utility>
 #include <functional>
 
-std::unordered_map <std::string, int>> builtins{
+std::unordered_map <std::string, int> builtins{
   {"echo", 1},
   {"type", 1},
   {"exit", 1}
