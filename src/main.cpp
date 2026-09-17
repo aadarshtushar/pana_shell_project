@@ -13,10 +13,6 @@ std::unordered_map <std::string, int>> builtins{
   {"exit", 1}
 };
 
-void exit(std:: string argument){
-  return;
-}
-
 std::vector<std::string> envDirectories = []() {
   
   std::string paths = std::getenv("PATH");
@@ -34,7 +30,7 @@ std::vector<std::string> envDirectories = []() {
 }();
 
 void type(std::string argument){
-  if(builtins.find(argument) != builtins.end()) std::cout<<argument<<" is a shell builtin"<<"\n";
+  if(builtins[argument]) std::cout<<argument<<" is a shell builtin"<<"\n";
   else{
 
     for(std::string i: envDirectories){
@@ -101,8 +97,8 @@ int main() {
 
     if(command == "exit") break;
 
-    std::unordered_map<std::string, std::function<void(std::string)>>::iterator it = builtins.find(command);
-    if(it != builtins.end()){
+    std::unordered_map<std::string, std::function<void(std::string)>>::iterator it = invoker.find(command);
+    if(it != invoker.end()){
       it->second(argument);
     }else{
       std::cout<<command<<": command not found"<<"\n";
