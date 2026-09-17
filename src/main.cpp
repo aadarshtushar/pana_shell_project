@@ -80,16 +80,19 @@ int main() {
   while(true){
 
     std::cout<<"$ ";
+    commandLine = "";
     std::getline(std::cin, commandLine);
 
     // seperating command and argument from commandline
     int size = commandLine.length();
     int index = 0;
 
+    command = "";
     while(commandLine[index] != ' ' && index < size){
       command += commandLine[index++];
     }
 
+    argument = "";
     index++;
     while(index < size){
       argument += commandLine[index++];
