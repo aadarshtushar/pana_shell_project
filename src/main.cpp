@@ -7,14 +7,10 @@
 #include <utility>
 #include <functional>
 
-void echo(std::string);
-void type(std::string);
-void exitFunc(std::string);
-
-std::unordered_map <std::string, std::function<void(std::string)>> builtins{
-  {"echo", echo},
-  {"type", type},
-  {"exit", exitFunc}
+std::unordered_map <std::string, int>> builtins{
+  {"echo", 1},
+  {"type", 1},
+  {"exit", 1}
 };
 
 void exit(std:: string argument){
@@ -68,6 +64,11 @@ void type(std::string argument){
 void echo(std::string argument){
     std::cout<<argument<<"\n";
 }
+
+std::unordered_map<std::string, std::function<void(std::string)>> invoker {
+  {"type", type},
+  {"echo", echo}
+};
 
 int main() {
   // Flush after every std::cout / std:cerr
