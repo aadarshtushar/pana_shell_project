@@ -31,7 +31,7 @@ std::vector<std::string> envDirectories = []() {
   }
 
   return directories;
-};
+}();
 
 void type(std::string argument){
   if(builtins.find(argument) != builtins.end()) std::cout<<argument<<" is a shell builtin"<<"\n";
@@ -40,7 +40,7 @@ void type(std::string argument){
     for(std::string i: envDirectories){
       std::filesystem::directory_iterator itr (i);
 
-      for(std::filesystem::directory_entry j: i){
+      for(std::filesystem::directory_entry j: itr){
         if(j.path().stem() != argument) continue;
 
         std::filesystem::perms p = j.status().permissions();
@@ -96,7 +96,7 @@ int main() {
 
     if(command == "exit") break;
 
-    std::pair<std::string, std::function<void(std::string)>>::iterator it = builtins.find(command);
+    std::unordered_map<std::string, std::function<void(std::string)>>::iterator it = builtins.find(command);
     if(it != builtins.end()){
       it->second(argument);
     }else{
