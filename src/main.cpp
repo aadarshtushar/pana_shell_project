@@ -10,7 +10,8 @@
 std::unordered_map <std::string, int> builtins{
   {"echo", 1},
   {"type", 1},
-  {"exit", 1}
+  {"exit", 1},
+  {"pwd", 1}
 };
 
 std::vector<std::string> envDirectories = []() {
@@ -74,9 +75,14 @@ void echo(std::string argument){
     std::cout<<argument<<"\n";
 }
 
+void pwd(std::string argument){
+  std::cout<<std::filesystem::current_path().string()<<"\n";
+}
+
 std::unordered_map<std::string, std::function<void(std::string)>> invoker {
   {"type", type},
-  {"echo", echo}
+  {"echo", echo},
+  {"pwd", pwd}
 };
 
 int main() {
