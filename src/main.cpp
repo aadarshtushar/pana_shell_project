@@ -6,6 +6,7 @@
 #include <sstream>
 #include <utility>
 #include <functional>
+#include <windows.h>
 
 std::unordered_map <std::string, int> builtins{
   {"echo", 1},
@@ -29,32 +30,75 @@ std::vector<std::string> envDirectories = []() {
   return directories;
 }();
 
+std::wstring toWide(std::string &narrow){
+  if(narrow.empty()) return std::wstring();
+
+  int sizeNeeded = MultiByteToWideChar(
+    CP_UTF8, 0, narrow.data(), (int)narrow.size(), nullptr, 0
+  );
+
+  std::wstring wide(sizeNeeded, 0);
+  MultiByteToWideChar(
+      CP_UTF8, 0, narrow.data(), (int)narrow.size(), wide.data(), sizeNeeded
+  );
+
+  return wide;
+}
+
+std::filesystem::path programFinder(std::string program){
+  for(std::string i: envDirectories){
+    std::filesystem::directory_iterator itr (i);
+
+    for(std::filesystem::directory_entry j: itr){
+      if(j.path().stem() != program) continue;
+
+      std::filesystem::perms p = j.status().permissions();
+
+      std::filesystem::perms check = std::filesystem::perms::owner_exec |
+        std::filesystem::perms::group_exec |
+        std::filesystem::perms::others_exec;
+      
+      if((p & check) != std::filesystem::perms::none) return j.path();
+    }
+  }
+
+  return std::filesystem::path();
+}
+
 void type(std::string argument){
   if(builtins[argument]) std::cout<<argument<<" is a shell builtin"<<"\n";
   else{
-
-    for(std::string i: envDirectories){
-      std::filesystem::directory_iterator itr (i);
-
-      for(std::filesystem::directory_entry j: itr){
-        if(j.path().stem() != argument) continue;
-
-        std::filesystem::perms p = j.status().permissions();
-
-        std::filesystem::perms check = std::filesystem::perms::owner_exec |
-          std::filesystem::perms::group_exec |
-          std::filesystem::perms::others_exec;
-        
-        if((p & check) != std::filesystem::perms::none){
-          std::string filepath = j.path();
-          std::cout<<argument<<" is "<<filepath<<"\n";
-          return;
-        }
-      }
-    }
-
-    std::cout<<argument<<": not found"<<"\n";
+    std::filesystem::path programPath = programFinder(argument);
+    if(!programPath.empty()) std::cout<<argument<<" is "<<programPath<<"\n";
+    else std::cout<<argument<<": not found"<<"\n";
   }
+}
+
+bool run(std::string program, std::string argument){
+  std::STARTUPINFOW si = {sizeof(si)};
+  std::PROCESS_INFORMATION pi;
+
+  std::filesystem::path programPath = programFinder(program);
+  if(programPath.empty()) return false;
+
+  std::wstring args = toWide(argument);
+  args = L"program " + args;
+
+  bool ok = CreateProcessW(
+    programPath.c_str(),
+    args.data(),
+    nullptr, nullptr,
+    FALSE, 0, nullptr, nullptr,
+    &si, &pi
+  );
+
+  if(!ok) return false;
+
+  WaitForSingleObject(pi.hProcess, INFINITE);
+  CloseHandle(pi.hProcess);
+  CloseHandle(pi.hThread);
+
+  return true;
 }
 
 void echo(std::string argument){
@@ -103,8 +147,10 @@ int main() {
     std::unordered_map<std::string, std::function<void(std::string)>>::iterator it = invoker.find(command);
     if(it != invoker.end()){
       it->second(argument);
-    }else{
-      std::cout<<command<<": command not found"<<"\n";
+    }
+    else{
+      if(!run(command, argument))
+        std::cout<<command<<": command not found"<<"\n";
     }
   }
 }
