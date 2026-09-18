@@ -65,7 +65,7 @@ bool run(std::string program, std::string argument){
 
   std::string systemCmd = "\"" + programPath.string() + "\" " + argument;
 
-  system(systemCmd);
+  system(systemCmd.c_str());
 
   return true;
 }
