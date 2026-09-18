@@ -63,7 +63,9 @@ bool run(std::string program, std::string argument){
 
   if(programPath.empty()) return false;
 
-  std::string systemCmd = "\"" + programPath.string() + "\" " + argument;
+  std::string systemCmd = "\"" + programPath.string() + "\" " + 
+    programPath.filename() + " " +
+    argument;
 
   system(systemCmd.c_str());
 
