@@ -53,7 +53,7 @@ void type(std::string argument){
   if(builtins[argument]) std::cout<<argument<<" is a shell builtin"<<"\n";
   else{
     std::filesystem::path programPath = programFinder(argument);
-    if(!programPath.empty()) std::cout<<argument<<" is "<<programPath<<"\n";
+    if(!programPath.empty()) std::cout<<argument<<" is "<<programPath.string()<<"\n";
     else std::cout<<argument<<": not found"<<"\n";
   }
 }
