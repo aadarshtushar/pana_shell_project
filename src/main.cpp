@@ -76,6 +76,7 @@ void echo(std::string argument){
 }
 
 void pwd(std::string argument){
+  if(!argument.empty()) {//logic to avoid arguments for argumentless commands}
   std::cout<<std::filesystem::current_path().string()<<"\n";
 }
 
