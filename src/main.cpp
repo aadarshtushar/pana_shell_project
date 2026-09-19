@@ -82,10 +82,19 @@ void pwd(std::string argument){
   std::cout<<std::filesystem::current_path().string()<<"\n";
 }
 
+void cd(std::string argument){
+
+  std::filesystem::path p (argument);
+
+  std::filesystem::current_path(p);
+
+}
+
 std::unordered_map<std::string, std::function<void(std::string)>> invoker {
   {"type", type},
   {"echo", echo},
-  {"pwd", pwd}
+  {"pwd", pwd},
+  {"cd", cd}
 };
 
 int main() {
