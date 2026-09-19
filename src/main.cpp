@@ -84,9 +84,9 @@ void pwd(std::string argument){
 
 void cd(std::string argument){
 
-  std::filesystem::path p = programFinder(argument);
+  std::filesystem::directory_entry p (argument);
 
-  if(!p.empty())std::filesystem::current_path(p);
+  if(p.exists())std::filesystem::current_path(p.path());
   else std::cout<<"cd: " + argument + ": No such file or directory"<<"\n";
 
 }
