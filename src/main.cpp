@@ -83,11 +83,16 @@ void pwd(std::string argument){
 }
 
 void cd(std::string argument){
+  
+  if(argument == '~'){
+    std::filesystem::path p (std::getenv("HOME"));
+    std::filesystem::current_path(p);
+  }else{
+    std::filesystem::directory_entry p (argument);
 
-  std::filesystem::directory_entry p (argument);
-
-  if(p.exists())std::filesystem::current_path(p.path());
-  else std::cout<<"cd: " + argument + ": No such file or directory"<<"\n";
+    if(p.exists())std::filesystem::current_path(p.path());
+    else std::cout<<"cd: " + argument + ": No such file or directory"<<"\n";
+  }
 
 }
 
