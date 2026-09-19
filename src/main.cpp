@@ -83,8 +83,8 @@ void pwd(std::string argument){
 }
 
 void cd(std::string argument){
-  
-  if(argument == '~'){
+
+  if(argument == "~"){
     std::filesystem::path p (std::getenv("HOME"));
     std::filesystem::current_path(p);
   }else{
