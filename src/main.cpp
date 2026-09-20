@@ -132,6 +132,7 @@ int main() {
     argument = "";
     index++;
     while(index < size){
+      if(commandLine[index] == "\'") agument += "\\"
       argument += commandLine[index++];
     }
 
