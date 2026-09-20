@@ -11,7 +11,8 @@ std::unordered_map <std::string, int> builtins{
   {"echo", 1},
   {"type", 1},
   {"exit", 1},
-  {"pwd", 1}
+  {"pwd", 1},
+  {"cd", 1}
 };
 
 std::vector<std::string> envDirectories = []() {
@@ -132,8 +133,9 @@ int main() {
     argument = "";
     index++;
     while(index < size){
-      if(commandLine[index] == '\''){
+      if(commandLine == "\'"){
         argument += "\'";
+        index++;
         continue;
       }
       argument += commandLine[index++];
