@@ -133,7 +133,10 @@ int main() {
     argument = "";
     index++;
     while(index < size){
-      if(commandLine[index++] == '\'') continue;
+      if(commandLine[index] == '\''){
+        index++;
+        continue;
+      }
       argument += commandLine[index++];
     }
 
