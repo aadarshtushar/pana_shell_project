@@ -31,6 +31,34 @@ std::vector<std::string> envDirectories = []() {
   return directories;
 }();
 
+std::string argumentParser(std::string argument){
+  std::string output;
+
+  bool isStringFlag = false;
+  int count = 0;
+
+  int size = argument.length();
+
+  for(int i = 0; i < size; i++){
+    if(argument[i] == '\''){
+      isStringFlag = !isStringFlag;
+      if(!isStringFlag) count = 0;
+      continue;
+    }
+
+    if(argument[i] == ' '){
+      if(count < 1 || isStringFlag){
+        output += argument[i];
+        count++;
+      }
+      else continue;
+    }
+    else output += argument[i];
+  }
+
+  return output;
+}
+
 std::filesystem::path programFinder(std::string program){
   for(std::string i: envDirectories){
     std::filesystem::directory_iterator itr (i);
@@ -133,12 +161,9 @@ int main() {
     argument = "";
     index++;
     while(index < size){
-      if(commandLine[index] == '\''){
-        index++;
-        continue;
-      }
       argument += commandLine[index++];
     }
+    argument = argumentParser(argument);
 
     if(command == "exit") break;
 
