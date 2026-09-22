@@ -31,34 +31,6 @@ std::vector<std::string> envDirectories = []() {
   return directories;
 }();
 
-std::string argumentParser(std::string argument){
-  std::string output;
-
-  bool isStringFlag = false;
-  int count = 0;
-
-  int size = argument.length();
-
-  for(int i = 0; i < size; i++){
-    if(argument[i] == '\''){
-      isStringFlag = !isStringFlag;
-      if(!isStringFlag) count = 0;
-      continue;
-    }
-
-    if(argument[i] == ' '){
-      if(count < 1 || isStringFlag){
-        output += argument[i];
-        count++;
-      }
-      else continue;
-    }
-    else output += argument[i];
-  }
-
-  return output;
-}
-
 std::filesystem::path programFinder(std::string program){
   for(std::string i: envDirectories){
     std::filesystem::directory_iterator itr (i);
@@ -101,7 +73,15 @@ bool run(std::string program, std::string argument){
 }
 
 void echo(std::string argument){
-    std::cout<<argument<<"\n";
+    std::string output;
+    // std::cout<<argument<<"\n";
+
+    for(auto i: argument){
+      if(i == '\'') continue;
+      output += i;
+    }
+
+    std::cout<<output<<"\n";
 }
 
 void pwd(std::string argument){
@@ -163,7 +143,6 @@ int main() {
     while(index < size){
       argument += commandLine[index++];
     }
-    argument = argumentParser(argument);
 
     if(command == "exit") break;
 
