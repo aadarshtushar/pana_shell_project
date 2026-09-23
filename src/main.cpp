@@ -76,9 +76,27 @@ void echo(std::string argument){
     std::string output;
     // std::cout<<argument<<"\n";
 
-    for(auto i: argument){
-      if(i == '\'') continue;
-      output += i;
+    int size = argument.length();
+
+    bool isStringFlag = false;
+    int count = 0;
+
+    for(int i = 0; i < size; i++){
+      if(argument[i] == '\''){
+        isStringFlag = !isStringFlag;
+        count = 0;
+        continue;
+      }
+
+      if(argument[i] == ' '){
+        if(isStringFlag || count < 1){
+          output += argument[i];
+          count++;
+        }
+      }else{
+        output += argument[i];
+        count = 0;
+      }
     }
 
     std::cout<<output<<"\n";
