@@ -51,15 +51,6 @@ std::filesystem::path programFinder(std::string program){
   return std::filesystem::path();
 }
 
-void type(std::string argument){
-  if(builtins[argument]) std::cout<<argument<<" is a shell builtin"<<"\n";
-  else{
-    std::filesystem::path programPath = programFinder(argument);
-    if(!programPath.empty()) std::cout<<argument<<" is "<<programPath.string()<<"\n";
-    else std::cout<<argument<<": not found"<<"\n";
-  }
-}
-
 bool run(std::string program, std::string argument){
   std::filesystem::path programPath = programFinder(program);
 
@@ -100,6 +91,15 @@ void echo(std::string argument){
     }
 
     std::cout<<output<<"\n";
+}
+
+void type(std::string argument){
+  if(builtins[argument]) std::cout<<argument<<" is a shell builtin"<<"\n";
+  else{
+    std::filesystem::path programPath = programFinder(argument);
+    if(!programPath.empty()) std::cout<<argument<<" is "<<programPath.string()<<"\n";
+    else std::cout<<argument<<": not found"<<"\n";
+  }
 }
 
 void pwd(std::string argument){
