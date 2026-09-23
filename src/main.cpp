@@ -73,7 +73,7 @@ void echo(std::string argument){
     int count = 0;
 
     for(int i = 0; i < size; i++){
-      if(argument[i] == '\''){
+      if(argument[i] == '\'' || argument[i] == '\"'){
         isStringFlag = !isStringFlag;
         count = 0;
         continue;
