@@ -31,6 +31,46 @@ std::vector<std::string> envDirectories = []() {
   return directories;
 }();
 
+std::string stringParser(std::string argument){
+    std::string output;
+    // std::cout<<argument<<"\n";
+
+    int size = argument.length();
+
+    bool isMajorStringFlag = false;
+    bool isMinorStringFlag = false;
+    int count = 0;
+
+    for(int i = 0; i < size; i++){
+      if(argument[i] == '\"'){
+        isMajorStringFlag = !isMajorStringFlag;
+        if(!isMajorStringFlag) count = 0;
+        continue;
+      }
+      else if(argument[i] == '\''){
+        if(isMajorStringFlag){
+          output += argument[i];
+          count = 0;
+        }else{
+          isMinorStringFlag = !isMinorStringFlag;
+          if(!isMinorStringFlag) count = 0;
+        }
+      }
+      else if(argument[i] == ' '){
+        if(count < 1 || isMajorStringFlag || isMinorStringFlag){
+          output += argument[i];
+          count++;
+        }
+      }
+      else{
+        output += argument[i];
+        count = 0;
+      }
+    }
+
+    return output;    
+}
+
 std::filesystem::path programFinder(std::string program){
   for(std::string i: envDirectories){
     std::filesystem::directory_iterator itr (i);
@@ -63,34 +103,8 @@ bool run(std::string program, std::string argument){
   return true;
 }
 
-void echo(std::string argument){
-    std::string output;
-    // std::cout<<argument<<"\n";
-
-    int size = argument.length();
-
-    bool isStringFlag = false;
-    int count = 0;
-
-    for(int i = 0; i < size; i++){
-      if(argument[i] == '\'' || argument[i] == '\"'){
-        isStringFlag = !isStringFlag;
-        count = 0;
-        continue;
-      }
-
-      if(argument[i] == ' '){
-        if(isStringFlag || count < 1){
-          output += argument[i];
-          count++;
-        }
-      }else{
-        output += argument[i];
-        count = 0;
-      }
-    }
-
-    std::cout<<output<<"\n";
+void echo(std::string argument){  
+  std::cout<<stringParser(argument)<<"\n";
 }
 
 void type(std::string argument){
