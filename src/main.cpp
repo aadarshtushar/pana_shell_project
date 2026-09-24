@@ -33,7 +33,6 @@ std::vector<std::string> envDirectories = []() {
 
 std::string stringParser(std::string argument){
     std::string output;
-    // std::cout<<argument<<"\n";
 
     int size = argument.length();
 
@@ -42,10 +41,23 @@ std::string stringParser(std::string argument){
     int count = 0;
 
     for(int i = 0; i < size; i++){
+
+      if(argument[i] == '\\'){
+        i++;
+        if(i < size){
+          if(argument[i] == ' '){
+            count++;
+          }else{
+            count = 0;
+          }
+          output += argument[i];
+        }
+        continue;
+      }
+
       if(argument[i] == '\"'){
         isMajorStringFlag = !isMajorStringFlag;
         if(!isMajorStringFlag) count = 0;
-        continue;
       }
       else if(argument[i] == '\''){
         if(isMajorStringFlag){
