@@ -56,8 +56,13 @@ std::string stringParser(std::string argument){
       }
 
       if(argument[i] == '\"'){
-        isMajorStringFlag = !isMajorStringFlag;
-        if(!isMajorStringFlag) count = 0;
+        if(isMinorStringFlag){
+          output += argument[i];
+          count = 0;
+        }else{
+          isMajorStringFlag = !isMajorStringFlag;
+          if(!isMajorStringFlag) count = 0;
+        }
       }
       else if(argument[i] == '\''){
         if(isMajorStringFlag){
