@@ -42,7 +42,7 @@ std::string stringParser(std::string argument){
 
     for(int i = 0; i < size; i++){
 
-      if(argument[i] == '\\' && !isMinorStringFlag){
+      if(argument[i] == '\\' && (!isMinorStringFlag || !isMajorStringFlag)){
         i++;
         if(i < size){
           if(argument[i] == ' '){
