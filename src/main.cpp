@@ -198,8 +198,27 @@ int main() {
     int index = 0;
 
     command = "";
-    while(commandLine[index] != ' ' && index < size){
-      command += commandLine[index++];
+    if(commandLine[index] == '\''){
+      index++;
+      while(commandLine[index] != '\''){
+        command += commandLine[index];
+        index++;
+      }
+      index++;
+    }
+    else if(commandLine[index] == '\"'){
+      index++;
+      while(commandLine[index] != '\"'){
+        command += commandLine[index];
+        index++;
+      }
+      index++;
+    }
+    else{
+      while(commandLine[index] != ' '){
+        command += commandLine[index];
+        index++;
+      }
     }
 
     argument = "";
