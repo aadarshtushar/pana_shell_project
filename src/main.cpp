@@ -42,15 +42,30 @@ std::string stringParser(std::string argument){
 
     for(int i = 0; i < size; i++){
 
-      if(argument[i] == '\\' && (!isMinorStringFlag && !isMajorStringFlag)){
-        i++;
-        if(i < size){
-          if(argument[i] == ' '){
-            count++;
-          }else{
+      if(argument[i] == '\\'){
+        if(isMinorStringFlag){
+          output += argument[i];
+          count = 0;
+        }
+        else if(isMajorStringFlag){
+          if(i+1 >= size){
+            output += argument[i];
             count = 0;
           }
-          output += argument[i];
+          else if(argument[i+1] == '\"' || argument[i+1] == '\\'){
+            output += argument[++i];
+            count = 0;
+          }
+          else{
+            output += argument[i];
+            count = 0;
+          }
+        }
+        else{
+          i++;
+          if(i < size) output += argument[i];
+          if(argument[i] == ' ') count++;
+          else count = 0;
         }
         continue;
       }
