@@ -128,7 +128,7 @@ bool run(std::string program, std::string argument){
 
   if(programPath.empty()) return false;
 
-  std::string systemCmd = program + " " + argument;
+  std::string systemCmd = "\'" + program + "\' " + argument;
 
   system(systemCmd.c_str());
 
