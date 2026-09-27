@@ -124,11 +124,12 @@ std::filesystem::path programFinder(std::string program){
 }
 
 bool run(std::string program, std::string argument){
+  std::cout<<program<<" "<<argument<<"\n";
   std::filesystem::path programPath = programFinder(program);
 
   if(programPath.empty()) return false;
 
-  std::string systemCmd = "\"" + programPath.filename().string() + "\" " + argument;
+  std::string systemCmd = program + " " + argument;
 
   system(systemCmd.c_str());
 
