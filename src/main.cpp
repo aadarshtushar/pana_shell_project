@@ -124,7 +124,6 @@ std::filesystem::path programFinder(std::string program){
 }
 
 bool run(std::string program, std::string argument){
-  std::cout<<program<<" "<<argument<<"\n";
   std::filesystem::path programPath = programFinder(program);
 
   if(programPath.empty()) return false;
