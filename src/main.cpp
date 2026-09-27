@@ -123,12 +123,12 @@ std::filesystem::path programFinder(std::string program){
   return std::filesystem::path();
 }
 
-bool run(std::string program, std::string argument){
+bool run(std::string program, std::string argument, std::string encaser){
   std::filesystem::path programPath = programFinder(program);
 
   if(programPath.empty()) return false;
 
-  std::string systemCmd = "\'" + program + "\' " + argument;
+  std::string systemCmd = encaser + program + encaser + " " + argument;
 
   system(systemCmd.c_str());
 
@@ -197,9 +197,12 @@ int main() {
     int size = commandLine.length();
     int index = 0;
 
+    std::string encaser = "";
+
     command = "";
     if(commandLine[index] == '\''){
       // command += commandLine[index];
+      encaser = "\'";
       index++;
       while(commandLine[index] != '\''){
         command += commandLine[index];
@@ -210,6 +213,7 @@ int main() {
     }
     else if(commandLine[index] == '\"'){
       // command += commandLine[index];
+      encaser = "\"";
       index++;
       while(commandLine[index] != '\"'){
         command += commandLine[index];
@@ -238,7 +242,7 @@ int main() {
       it->second(argument);
     }
     else{
-      if(!run(command, argument))
+      if(!run(command, argument, encaser))
         std::cout<<command<<": command not found"<<"\n";
     }
   }
