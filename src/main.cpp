@@ -199,23 +199,23 @@ int main() {
 
     command = "";
     if(commandLine[index] == '\''){
-      command += commandLine[index];
+      // command += commandLine[index];
       index++;
       while(commandLine[index] != '\''){
         command += commandLine[index];
         index++;
       }
-      command += commandLine[index];
+      // command += commandLine[index];
       index++;
     }
     else if(commandLine[index] == '\"'){
-      command += commandLine[index];
+      // command += commandLine[index];
       index++;
       while(commandLine[index] != '\"'){
         command += commandLine[index];
         index++;
       }
-      command += commandLine[index];
+      // command += commandLine[index];
       index++;
     }
     else{
