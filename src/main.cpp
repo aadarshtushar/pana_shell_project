@@ -130,8 +130,6 @@ bool run(std::string program, std::string argument){
 
   std::string systemCmd = "\"" + programPath.filename().string() + "\" " + argument;
 
-  std::cout<<systemCmd<<"\n";
-
   system(systemCmd.c_str());
 
   return true;
@@ -222,8 +220,6 @@ int main() {
         index++;
       }
     }
-
-    std::cout<<command<<'\n';
 
     argument = "";
     index++;
