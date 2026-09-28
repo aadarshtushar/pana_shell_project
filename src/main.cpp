@@ -127,7 +127,7 @@ bool run(std::string program, std::string argument, std::string encaser){
   std::filesystem::path programPath = programFinder(program);
 
   if(programPath.empty()){
-    std::cout<<"Can't Find Program"<<"\n";
+    std::cout<<program<<"\n";
     return false;
   }
 
