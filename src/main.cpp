@@ -126,7 +126,10 @@ std::filesystem::path programFinder(std::string program){
 bool run(std::string program, std::string argument, std::string encaser){
   std::filesystem::path programPath = programFinder(program);
 
-  if(programPath.empty()) return false;
+  if(programPath.empty()){
+    std::cout<<"Can't Find Program"<<"\n";
+    return false;
+  }
 
   std::string systemCmd = encaser + program + encaser + " " + argument;
 
