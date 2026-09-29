@@ -205,7 +205,7 @@ int main() {
       // command += commandLine[index];
       encaser = "\'";
       index++;
-      while(commandLine[index] != '\''){
+      while(commandLine[index] != '\'' && index < size){
         command += commandLine[index];
         index++;
       }
@@ -216,7 +216,7 @@ int main() {
       // command += commandLine[index];
       encaser = "\"";
       index++;
-      while(commandLine[index] != '\"'){
+      while(commandLine[index] != '\"' && index < size){
         command += commandLine[index];
         index++;
       }
@@ -224,7 +224,7 @@ int main() {
       index++;
     }
     else{
-      while(commandLine[index] != ' '){
+      while(commandLine[index] != ' ' && index < size){
         command += commandLine[index];
         index++;
       }
