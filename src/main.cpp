@@ -108,10 +108,7 @@ std::filesystem::path programFinder(std::string program){
     std::filesystem::directory_iterator itr (i);
 
     for(std::filesystem::directory_entry j: itr){
-      if(j.path().stem().string() != program){
-        // std::cout<<j.path().string()<<"\n";
-        continue;
-      }
+      if(j.path().stem().string() != program) continue;
 
       std::filesystem::perms p = j.status().permissions();
 
