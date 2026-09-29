@@ -108,7 +108,10 @@ std::filesystem::path programFinder(std::string program){
     std::filesystem::directory_iterator itr (i);
 
     for(std::filesystem::directory_entry j: itr){
-      if(j.path().stem().string() != program) continue;
+      if(j.path().stem().string() != program){
+        // std::cout<<j.path().string()<<"\n";
+        continue;
+      }
 
       std::filesystem::perms p = j.status().permissions();
 
@@ -124,12 +127,10 @@ std::filesystem::path programFinder(std::string program){
 }
 
 bool run(std::string program, std::string argument, std::string encaser){
+  if(encaser != "\"") program = stringParser(program);
   std::filesystem::path programPath = programFinder(program);
 
-  if(programPath.empty()){
-    std::cout<<program<<"\n";
-    return false;
-  }
+  if(programPath.empty())return false;
 
   std::string systemCmd = encaser + program + encaser + " " + argument;
 
