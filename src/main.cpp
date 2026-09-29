@@ -127,7 +127,7 @@ std::filesystem::path programFinder(std::string program){
 }
 
 bool run(std::string program, std::string argument, std::string encaser){
-  if(encaser != "\"") program = stringParser(program);
+  if(encaser != "") program = stringParser(program);
   std::filesystem::path programPath = programFinder(program);
 
   if(programPath.empty())return false;
