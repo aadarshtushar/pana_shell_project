@@ -136,7 +136,9 @@ bool run(std::string program, std::string argument, std::string encaser){
   return true;
 }
 
-void echo(std::string argument){  
+void echo(std::string argument){
+  if(true)
+
   std::cout<<stringParser(argument)<<"\n";
 }
 
